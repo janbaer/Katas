@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{03378EB9-BA35-4DC8-BE6E-CDA1FC21FC9F}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+		SpecRunner.html = SpecRunner.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{376FD057-3C1D-419B-88EC-AC228E0008AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spec", "spec", "{1A0D1DB5-C0BF-47B4-BAE3-FBB66970F72F}"
+	ProjectSection(SolutionItems) = preProject
+		spec\SpecHelper.js = spec\SpecHelper.js
+		spec\StringCalculatorSpec.js = spec\StringCalculatorSpec.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ACB5178C-0BEA-4EB9-99DC-3B850D99B596}"
+	ProjectSection(SolutionItems) = preProject
+		src\stringCalculator.js = src\stringCalculator.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jasmine-1.2.0", "jasmine-1.2.0", "{21E81302-5950-4A6D-A01A-BB52C0E5CE33}"
+	ProjectSection(SolutionItems) = preProject
+		lib\jasmine-1.2.0\jasmine-html.js = lib\jasmine-1.2.0\jasmine-html.js
+		lib\jasmine-1.2.0\jasmine.css = lib\jasmine-1.2.0\jasmine.css
+		lib\jasmine-1.2.0\jasmine.js = lib\jasmine-1.2.0\jasmine.js
+		lib\jasmine-1.2.0\MIT.LICENSE = lib\jasmine-1.2.0\MIT.LICENSE
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{376FD057-3C1D-419B-88EC-AC228E0008AA} = {03378EB9-BA35-4DC8-BE6E-CDA1FC21FC9F}
+		{1A0D1DB5-C0BF-47B4-BAE3-FBB66970F72F} = {03378EB9-BA35-4DC8-BE6E-CDA1FC21FC9F}
+		{ACB5178C-0BEA-4EB9-99DC-3B850D99B596} = {03378EB9-BA35-4DC8-BE6E-CDA1FC21FC9F}
+		{21E81302-5950-4A6D-A01A-BB52C0E5CE33} = {376FD057-3C1D-419B-88EC-AC228E0008AA}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,15 @@
+*resharper.user
+[Dd]ebug/
+[Rr]elease/
+TestResults/
+test-results/
+build/
+[Bb]in/
+[Oo]bj/
+nuget/
+*.suo
+*.sln.cache
+*.ncrunchproject.cache
+_ReSharper.*/
+*.user
+.DS_Store

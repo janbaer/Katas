@@ -1,0 +1,1 @@
+This project contains a Kata for a LinkedList<T> and the UnitTests
