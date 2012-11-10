@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.LinkedList", "..\..\..\..\MyProjects\Katas\Katas\Kata.LinkedList\Kata.LinkedList.csproj", "{5587695C-CF2A-4C77-89D4-8C8B70F0BC3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E04E61B3-1E41-4C07-9F14-51F9A382CB02}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.LinqExtensions", "..\..\..\..\MyProjects\Katas\Katas\Kata.LinqExtensions\Kata.LinqExtensions.csproj", "{3DF258CF-FB3A-4CBF-832F-37826D9BC282}"
 EndProject
