@@ -49,7 +49,7 @@ namespace Kata.GameOfLife
             grid.NewGeneration();
 
             // ASSERT
-            grid.IsAlive(new Cell(1, 1)).Should().BeTrue();
+            grid.IsAlive(new Cell(1,2)).Should().BeTrue();
 
         }
 
