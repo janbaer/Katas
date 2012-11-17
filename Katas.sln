@@ -1,26 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.DictionaryReplacer", "..\..\..\..\MyProjects\Katas\Katas\Kata.DictionaryReplacer\Kata.DictionaryReplacer.csproj", "{39927A1D-035D-4BD7-AF58-18F49BF08C1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.DictionaryReplacer", "Kata.DictionaryReplacer\Kata.DictionaryReplacer.csproj", "{39927A1D-035D-4BD7-AF58-18F49BF08C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.FileSizeCounter", "..\..\..\..\MyProjects\Katas\Katas\Kata.FileSizeCounter\Kata.FileSizeCounter.csproj", "{3A887AEA-F675-4F06-9FD4-45008D09D657}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.FileSizeCounter", "Kata.FileSizeCounter\Kata.FileSizeCounter.csproj", "{3A887AEA-F675-4F06-9FD4-45008D09D657}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.FizzBuzz", "..\..\..\..\MyProjects\Katas\Katas\Kata.FizzBuzz\Kata.FizzBuzz.csproj", "{C07099DB-1A70-40BC-941F-F75748627BF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.FizzBuzz", "Kata.FizzBuzz\Kata.FizzBuzz.csproj", "{C07099DB-1A70-40BC-941F-F75748627BF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.LinkedList", "..\..\..\..\MyProjects\Katas\Katas\Kata.LinkedList\Kata.LinkedList.csproj", "{5587695C-CF2A-4C77-89D4-8C8B70F0BC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.LinkedList", "Kata.LinkedList\Kata.LinkedList.csproj", "{5587695C-CF2A-4C77-89D4-8C8B70F0BC3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.LinqExtensions", "Kata.LinqExtensions\Kata.LinqExtensions.csproj", "{3DF258CF-FB3A-4CBF-832F-37826D9BC282}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.PrimeNumbers", "Kata.PrimeNumbers\Kata.PrimeNumbers.csproj", "{C3F1A767-67C0-4994-A5C9-DD5B428F75CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.RomanNumerus", "Kata.RomanNumerus\Kata.RomanNumerus.csproj", "{9AE14D54-BD10-42A3-B3D3-4388B5483AC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.TowersOfHanoi", "Kata.TowersOfHanoi\Kata.TowersOfHanoi.csproj", "{AC5C2811-7ACF-4D23-AB3F-431B585BB013}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E04E61B3-1E41-4C07-9F14-51F9A382CB02}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.LinqExtensions", "..\..\..\..\MyProjects\Katas\Katas\Kata.LinqExtensions\Kata.LinqExtensions.csproj", "{3DF258CF-FB3A-4CBF-832F-37826D9BC282}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.PrimeNumbers", "..\..\..\..\MyProjects\Katas\Katas\Kata.PrimeNumbers\Kata.PrimeNumbers.csproj", "{C3F1A767-67C0-4994-A5C9-DD5B428F75CE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.RomanNumerus", "..\..\..\..\MyProjects\Katas\Katas\Kata.RomanNumerus\Kata.RomanNumerus.csproj", "{9AE14D54-BD10-42A3-B3D3-4388B5483AC0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.TowersOfHanoi", "..\..\..\..\MyProjects\Katas\Katas\Kata.TowersOfHanoi\Kata.TowersOfHanoi.csproj", "{AC5C2811-7ACF-4D23-AB3F-431B585BB013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
