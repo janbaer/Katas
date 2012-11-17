@@ -6,30 +6,30 @@ namespace Kata.GameOfLife
 {
     public class Grid
     {
-        private HashSet<Cell> _aliveCells = new HashSet<Cell>();
+        private HashSet<Cell> aliveCells = new HashSet<Cell>();
 
         public Grid(params Cell[] aliveCells )
         {
-            Array.ForEach(aliveCells, c => _aliveCells.Add(c));
+            Array.ForEach(aliveCells, c => this.aliveCells.Add(c));
         }
 
         public bool IsAlive(Cell cell)
         {
-            return _aliveCells.Contains(cell);
+            return aliveCells.Contains(cell);
         }
 
         public void NewGeneration()
         {
 
 
-            var keepAliveNeighboors = _aliveCells.Where(c => GetNumberOfAliveNeighboors(c) == 2 || 
+            var keepAliveNeighboors = aliveCells.Where(c => GetNumberOfAliveNeighboors(c) == 2 || 
                                                              GetNumberOfAliveNeighboors(c) == 3).ToList();
 
-            var reviveCandidates = _aliveCells.SelectMany(GetDeadNeighboors)
+            var reviveCandidates = aliveCells.SelectMany(GetDeadNeighboors)
                                              .Where(c => GetNumberOfAliveNeighboors(c) == 3).ToList();
   
-            _aliveCells.Clear();
-            _aliveCells = new HashSet<Cell>(keepAliveNeighboors.Union(reviveCandidates));
+            aliveCells.Clear();
+            aliveCells = new HashSet<Cell>(keepAliveNeighboors.Union(reviveCandidates));
         }
 
         private int GetNumberOfAliveNeighboors(Cell cell)
@@ -40,7 +40,7 @@ namespace Kata.GameOfLife
 
         private IEnumerable<Cell> GetDeadNeighboors(Cell livingCell)
         {
-            return GetNeighboorsOf(livingCell).Except(_aliveCells);
+            return GetNeighboorsOf(livingCell).Except(aliveCells);
         }
 
         private IEnumerable<Cell> GetNeighboorsOf(Cell cell)
