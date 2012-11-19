@@ -10,25 +10,33 @@ namespace Kata.GameOfLife
             this.Y = y;
         }
 
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public int Y { get; set; }
+        public int X { get; set; }
+
 
         public bool Equals(Cell other)
         {
-            return other.X == this.X && other.Y == this.Y;
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.X == other.X && this.Y == other.Y;
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (obj.GetType() != typeof(Cell)) return false;
-
-            return Equals((Cell)obj);
+            return this.Equals(obj as Cell);
         }
 
         public override int GetHashCode()
         {
-            return (this.X*397) ^ this.Y;
+            return (this.X * 397) ^ this.Y;
         }
 
         public override string ToString()
