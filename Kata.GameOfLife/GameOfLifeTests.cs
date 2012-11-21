@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using FluentAssertions;
 
@@ -15,18 +12,18 @@ namespace Kata.GameOfLife
         public void new_generation_should_kill_cells_with_fewer_than_two_alive_neighbors()
         {
             // ARRANGE
-            var grid = new Grid(new Cell(1, 1), new Cell(1, 2));
+            var grid = new Grid(new Cell(1, 1), new Cell(2, 1));
 
             // ACT
             grid = grid.NewGeneration();
 
             // ASSERT
             Assert.IsFalse(grid.IsAlive(new Cell(1, 1)));
-            Assert.IsFalse(grid.IsAlive(new Cell(1, 2)));
+            Assert.IsFalse(grid.IsAlive(new Cell(2, 1)));
         }
 
         [Test]
-        public void new_generation_should_keep_alive_cells_with_two_alive_neighbors()
+        public void new_generation_should_keep_cells_with_two_alive_neighbors()
         {
             // ARRANGE
             var grid = new Grid(new Cell(1, 1), new Cell(2, 1), new Cell(3, 1));
@@ -41,7 +38,7 @@ namespace Kata.GameOfLife
         }
 
         [Test]
-        public void new_generation_should_keep_alive_cells_with_three_alive_neighbors()
+        public void new_generation_should_keep_cells_with_three_alive_neighbors()
         {
             // ARRANGE
             var grid = new Grid(new Cell(1, 1), new Cell(2, 1), new Cell(3, 1), new Cell(2, 2));
@@ -57,35 +54,30 @@ namespace Kata.GameOfLife
         }
 
         [Test]
-        public void new_generation_should_avive_dead_cells_with_three_alive_neighbors()
+        public void new_generation_should_avive_dead_cells_with_three_alive_neighboors()
         {
             // ARRANGE
-            var grid = new Grid(new Cell(1, 2), new Cell(2, 1), new Cell(3, 2));
+            var grid = new Grid(new Cell(1, 1), new Cell(2, 1), new Cell(3, 1));
 
             // ACT
             grid = grid.NewGeneration();
 
             // ASSERT
             grid.IsAlive(new Cell(2, 2)).Should().BeTrue();
-
         }
 
-
-
         [Test]
-        public void GetNeighboorsOf_should_return_eight_neighboors()
+        public void GetNeighbors_should_return_eight_neighbors()
         {
             // ARRANGE
             var grid = new Grid();
 
             // ACT
-            IEnumerable<Cell> neighbors = grid.GetNeighborsOf(new Cell(2, 2));
+            IEnumerable<Cell> neighbors = grid.GetNeigborsOf(new Cell(2, 2));
 
             // ASSERT
-            neighbors.Should().NotBeNull();
-            neighbors.Count().ShouldBeEquivalentTo(8);
-
+            Assert.IsNotNull(neighbors);
+            Assert.AreEqual(8, neighbors.Count());
         }
-
     }
 }
