@@ -18,14 +18,11 @@ namespace Kata.GameOfLife
             if (ReferenceEquals(this, other)) return true;
 
             return this.X == other.X && this.Y == other.Y;
-
         }
 
         public override string ToString()
         {
             return string.Format("X: {0}, Y: {1}", X, Y);
         }
-
-
     }
 }
