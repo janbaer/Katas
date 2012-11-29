@@ -1,6 +1,6 @@
 ﻿#Overview
 
-This project conatins my solution for the kata "GameOfLife"
+This project contains my solution for the kata "GameOfLife"
 
 # References
 

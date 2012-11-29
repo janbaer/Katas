@@ -5,31 +5,53 @@ namespace Kata.GameOfLife
 {
     public class Grid
     {
-        private readonly Cell[] aliveCells;
+        private readonly List<Cell> cells;
 
         public Grid(params Cell[] aliveCells)
         {
-            this.aliveCells = aliveCells;
+            cells = new List<Cell>(aliveCells);
         }
 
-        public bool IsAlive(Cell cell)
+        public bool IsAlive(Cell cellToCheck)
         {
-            return this.aliveCells.Any(c=> c.Equals(cell));
+            return cells.Any(c => c.Equals(cellToCheck));
         }
 
         public Grid NewGeneration()
         {
-            var aliveCandidates = this.aliveCells.Where(c => GetNumberOfAliveNeighborsOf(c) == 2 || GetNumberOfAliveNeighborsOf(c) == 3);
+            var deadNeighboursWith3Alive = GetDeadNeighboursWithAlive(3);
+            
+            var aliveCandidates = this.cells.Where(
+                c => {
+                         int numberOfAliveNeighbors = GetNumbersOfAliveNeighborsOf(c);
+                         return numberOfAliveNeighbors == 2 || numberOfAliveNeighbors == 3;
 
-            var aviveCandidates = this.aliveCells.SelectMany(GetDeadNeighboorsOf).Where(c => GetNumberOfAliveNeighborsOf(c) == 3);
+                });
 
-            return new Grid(aliveCandidates.Union(aviveCandidates).ToArray());
+            return new Grid(aliveCandidates.Union(deadNeighboursWith3Alive).ToArray());
         }
 
+        private IEnumerable<Cell> GetDeadNeighboursWithAlive(int numberOfAliveNeighbours)
+        {
+            var neighborsOfCells = new List<Cell>();
+            foreach (var cell in this.cells)
+            {
+                neighborsOfCells.AddRange(this.GetNeighborsOf(cell));
+            }
+
+            var deadNeighboursWithSomeAlive =
+                neighborsOfCells.Where(c => !IsAlive(c)).Where(c => GetNumbersOfAliveNeighborsOf(c) == numberOfAliveNeighbours);
+            return deadNeighboursWithSomeAlive;
+        }
+
+        private int GetNumbersOfAliveNeighborsOf(Cell cell)
+        {
+            return GetNeighborsOf(cell).Count(IsAlive);
+        }
 
         public IEnumerable<Cell> GetNeighborsOf(Cell cell)
         {
-            var neighbors = new List<Cell>();
+            var neighbours = new List<Cell>();
 
             foreach (var x in Enumerable.Range(-1, 3))
             {
@@ -37,26 +59,14 @@ namespace Kata.GameOfLife
                 {
                     var newCell = new Cell(cell.X + x, cell.Y + y);
 
-                    if (newCell.Equals(cell) == false)
+                    if (!newCell.Equals(cell))
                     {
-                        neighbors.Add(newCell);
+                        neighbours.Add(newCell);
                     }
-
-
                 }
             }
 
-            return neighbors;
-        }
-
-        public int GetNumberOfAliveNeighborsOf(Cell cell)
-        {
-            return GetNeighborsOf(cell).Count(IsAlive);
-        }
-
-        public IEnumerable<Cell> GetDeadNeighboorsOf(Cell cell)
-        {
-            return GetNeighborsOf(cell).Where(c => !IsAlive(c));
+            return neighbours;
         }
     }
 }
