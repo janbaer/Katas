@@ -4,16 +4,15 @@ namespace Kata.GameOfLife
 {
     public class Cell : IEquatable<Cell>
     {
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public Cell(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
-        public int Y { get; set; }
-
-        public int X { get; set; }
         public bool Equals(Cell other)
         {
             if (ReferenceEquals(this, other)) return true;
