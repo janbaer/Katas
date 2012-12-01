@@ -1,45 +1,42 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Kata.StringCalculator2
 {
     public class StringCalculator
     {
-        public int Calc(string input)
+        public int Add(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
                 return 0;
             }
 
-            string delimiter = ",";
+            var delimiters = ",";
 
-            var regex = new Regex(@"^//(?<DELIMITER>.+)\\n(?<INPUT>.+)$");
-
-            var match = regex.Match(input);
-            if (match.Success)
+            if (input.StartsWith("//"))
             {
-                delimiter = match.Groups["DELIMITER"].Value;
-                input = match.Groups["INPUT"].Value;
+                int index = input.IndexOf(@"\n", System.StringComparison.InvariantCulture);
+                delimiters = input.Substring(2, index - 2);
+                input = input.Substring(index + 2);
             }
             else
             {
-                input = input.Replace(@"\n", delimiter);                
+                input = input.Replace(@"\n", ",");
             }
 
-            int sum = 0;
-            var numbers = input.Split(delimiter);
+            input = input.Replace(delimiters, ",");
 
-            foreach (var number in numbers)
+            var numbers = input.Split(',')
+                               .Select(int.Parse)
+                               .Where(v=> v < 1001);
+
+            if (numbers.Any(v => v < 0))
             {
-                int value = int.Parse(number);
-                if (value < 0)
-                {
-                    throw new ArgumentException("input");
-                }
-                sum += value;
+                throw new ArgumentOutOfRangeException();
             }
-            return sum;
+
+            return numbers.Sum();
         }
     }
 }

@@ -1,94 +1,119 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
+
 
 namespace Kata.StringCalculator2
 {
-    [TestFixture]
     public class StringCalculatorTests
     {
-        [Test]
+        [Fact]
         public void when_string_is_empty_it_should_return_zero()
-        {
-            // ARRANGE
-            StringCalculator stringCaclulator = new StringCalculator();
-
-            // ACT
-            int result = stringCaclulator.Calc("");
-
-            // ASSERT
-            Assert.AreEqual(0, result);
-        }
-
-        [Test]
-        public void when_string_is_One_it_should_return_1()
         {
             // ARRANGE
             StringCalculator stringCalculator = new StringCalculator();
 
             // ACT
-            int result = stringCalculator.Calc("1");
+            int sum = stringCalculator.Add(string.Empty);
 
             // ASSERT
-            Assert.AreEqual(1, result);
+            Assert.Equal(0, sum);
         }
 
-        [Test]
-        [TestCase("1,2", 3)]
-        [TestCase("1,2,3", 6)]
-        public void when_string_contains_more_than_two_numbers_it_should_return_the_sum(string input, int expectedResult)
+        [Fact]
+        public void when_string_contains_one_it_should_return_1()
+        {
+            // ARRANGE
+            StringCalculator stringCalculator = new StringCalculator();
+
+            // ACT
+            int sum = stringCalculator.Add("1");
+
+            // ASSERT
+            Assert.Equal(1, sum);
+        }
+
+        [Fact]
+        public void when_string_contains_two_numbers_with_a_delimiter_it_should_return_the_sum()
+        {
+            // ARRANGE
+            StringCalculator stringCalculator = new StringCalculator();
+
+            // ACT
+            int sum = stringCalculator.Add("1,2");
+
+            // ASSERT
+            Assert.Equal(3, sum);
+        }
+
+        [Fact]
+        public void when_string_contains_newline_and_comma_as_delimiter_it_should_return_the_correct_sum()
+        {
+            // ARRANGE
+            StringCalculator stringCalculator = new StringCalculator();
+
+            // ACT
+            int sum = stringCalculator.Add(@"1\n2,3");
+
+            // ASSERT
+            Assert.Equal(6, sum);
+        }
+
+        [Fact]
+        public void when_string_contains_definition_for_delimiter_it_should_use_this_delimiter()
         {
             // ARRANGE
             var stringCalculator = new StringCalculator();
 
             // ACT
-            var result = stringCalculator.Calc(input);
+            int sum = stringCalculator.Add(@"//;\n1;2");
 
             // ASSERT
-            Assert.AreEqual(expectedResult, result);
+            Assert.Equal(3, sum);
         }
 
-        [Test]
-        public void when_delimiter_is_newline_or_comma_it_should_also_returns_the_sum()
+        [Fact]
+        public void add_numbers_greater_than_thousand_should_be_ignored()
         {
             // ARRANGE
-            var stringCalculator = new StringCalculator();
+            StringCalculator stringCalculator = new StringCalculator();
 
             // ACT
-            int sum = stringCalculator.Calc(@"1\n2,3");
+            int sum = stringCalculator.Add("1,1000,1001,2");
 
             // ASSERT
-            Assert.AreEqual(6, sum);
+            Assert.Equal(1003, sum);
         }
 
-        [Test]
-        [TestCase(@"//;\n1;2", 3)]
-        [TestCase(@"//=\n1=2", 3)]
-        [TestCase(@"//==\n1==2", 3)]
-        public void when_string_starts_with_the_definition_of_the_delimiter_it_should_use_this_delimiter(string input, int expectedResult)
+        [Fact]
+        public void when_input_contains_a_negative_number_it_should_throws_an_execption()
         {
             // ARRANGE
-            var stringCalculator = new StringCalculator();
+            StringCalculator stringCalculator = new StringCalculator();
 
             // ACT
-            var sum = stringCalculator.Calc(input);
-
+            
             // ASSERT
-            Assert.AreEqual(expectedResult, sum);
+            Assert.Throws<ArgumentOutOfRangeException>(() => stringCalculator.Add("-1,2"));
         }
 
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void when_number_is_negative_it_should_throws_exception()
+        [Fact]
+        public void add_delimiters_can_have_any_length()
         {
             // ARRANGE
-            var stringCalulator = new StringCalculator();
+            StringCalculator stringCalculator = new StringCalculator();
 
             // ACT
-            stringCalulator.Calc("-1");
+            var sum = stringCalculator.Add(@"//***\n1***2***3");
 
             // ASSERT
+            Assert.Equal(6, sum);
         }
+        
     }
+
+    
 }
