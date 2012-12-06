@@ -12,26 +12,17 @@ namespace Kata.StringCalculator2
                 return 0;
             }
 
-            var delimiters = ",";
+            char[] delimiters = new char[] {',', '\n'};
 
             if (input.StartsWith("//"))
             {
-                int index = input.IndexOf(@"\n", System.StringComparison.InvariantCulture);
-                delimiters = input.Substring(2, index - 2);
-                input = input.Substring(index + 2);
-            }
-            else
-            {
-                input = input.Replace(@"\n", ",");
+                delimiters = input.Substring(2, 1).ToCharArray();
+                input = input.Substring(input.IndexOf('\n') + 1);
             }
 
-            input = input.Replace(delimiters, ",");
+            var numbers = input.Split(delimiters).Select(int.Parse).Where(n=> n <= 1000).ToList();
 
-            var numbers = input.Split(',')
-                               .Select(int.Parse)
-                               .Where(v=> v < 1001);
-
-            if (numbers.Any(v => v < 0))
+            if (numbers.Any(n=> n < 0))
             {
                 throw new ArgumentOutOfRangeException();
             }
