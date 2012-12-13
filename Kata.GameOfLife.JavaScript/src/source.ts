@@ -1,110 +1,149 @@
-var GameOfLife;
-(function (GameOfLife) {
-    var Cell = (function () {
-        function Cell(x, y) {
+﻿declare var _;
+module GameOfLife {
+    export class Cell {
+        public X: number;
+        public Y: number;
+
+        constructor(x: number, y: number) {
             this.X = x;
             this.Y = y;
         }
-        Cell.prototype.equals = function (other) {
-            if(other == null || other === undefined) {
+
+        equals(other: Cell) {
+            if (other == null || other === undefined) {
                 return false;
             }
             return this.X == other.X && this.Y == other.Y;
-        };
-        return Cell;
-    })();
-    GameOfLife.Cell = Cell;    
-    var Grid = (function () {
-        function Grid(initialAliveCells) {
-            if(initialAliveCells === undefined) {
+        }
+    }
+
+    export class Grid {
+
+        aliveCells: Cell[];
+
+        constructor(initialAliveCells: Cell[]) {
+            if (initialAliveCells === undefined) {
                 initialAliveCells = [];
             }
             this.aliveCells = initialAliveCells;
         }
-        Grid.prototype.isAlive = function (cell) {
+
+        public isAlive(cell: Cell) {
             var isAlive = false;
-            _.each(this.aliveCells, function (c) {
-                if(cell.equals(c)) {
+
+            _.each(this.aliveCells, function (c: Cell) {
+                if (cell.equals(c)) {
                     isAlive = true;
                 }
             });
+
             return isAlive;
-        };
-        Grid.prototype.getNeighborsOf = function (cell) {
+        }
+
+        public getNeighborsOf(cell: Cell) {
             var neigbors = [];
-            _.each(_.range(-1, 2), function (x) {
-                _.each(_.range(-1, 2), function (y) {
+
+            _.each(_.range(-1, 2), function (x: number) {
+                _.each(_.range(-1, 2), function (y: number) {
+
                     var c = new Cell(cell.X + x, cell.Y + y);
-                    if(cell.equals(c) == false) {
+
+                    if (cell.equals(c) == false) {
                         neigbors.push(c);
                     }
+
                 });
             });
+
             return neigbors;
-        };
-        Grid.prototype.getCountOfAliveNeighbors = function (cell) {
+        }
+
+        public getCountOfAliveNeighbors(cell: Cell) {
             var neighbors = this.getNeighborsOf(cell);
+
             var count = 0;
+
             var that = this;
-            _.each(neighbors, function (neighbor) {
-                if(that.isAlive(neighbor)) {
+
+            _.each(neighbors, function (neighbor: Cell) {
+                if (that.isAlive(neighbor)) {
                     count++;
                 }
+
             });
+
             return count;
-        };
-        Grid.prototype.getDeadNeighborsOf = function (cell) {
+        }
+
+        public getDeadNeighborsOf(cell: Cell) {
             var that = this;
+
             var neighbors = this.getNeighborsOf(cell);
             var deadNeighbors = [];
-            _.each(neighbors, function (neighbor) {
-                if(that.isAlive(neighbor) == false) {
+
+            _.each(neighbors, function (neighbor: Cell) {
+                if (that.isAlive(neighbor) == false) {
                     deadNeighbors.push(neighbor);
                 }
             });
+
             return deadNeighbors;
-        };
-        Grid.prototype.newGeneration = function () {
+        }
+
+        public newGeneration() {
             var aliveCandidates = this.getAliveCandidates(this.aliveCells);
+
             var reviveCandidates = this.getReviveCandidates(this.aliveCells);
+
             return new Grid(aliveCandidates.concat(reviveCandidates));
-        };
-        Grid.prototype.getAliveCandidates = function (aliveCells) {
+        }
+
+        private getAliveCandidates(aliveCells) {
             var that = this;
             var aliveCandidates = [];
-            _.each(aliveCells, function (cell) {
+
+            _.each(aliveCells, function (cell: Cell) {
                 var numberOfAliveNeighbors = that.getCountOfAliveNeighbors(cell);
-                if(numberOfAliveNeighbors == 2 || numberOfAliveNeighbors == 3) {
+
+                if (numberOfAliveNeighbors == 2 || numberOfAliveNeighbors == 3) {
                     aliveCandidates.push(cell);
                 }
             });
+
             return aliveCandidates;
-        };
-        Grid.prototype.getReviveCandidates = function (aliveCells) {
+        }
+
+        private getReviveCandidates(aliveCells) {
             var that = this;
             var candidates = [];
+
             _.each(aliveCells, function (cell) {
                 var deadNeighbors = that.getDeadNeighborsOf(cell);
-                _.each(deadNeighbors, function (c) {
-                    if(that.getCountOfAliveNeighbors(c) == 3) {
-                        if(that.containsCell(candidates, c) == false) {
+
+                _.each(deadNeighbors, function (c: Cell) {
+                    if (that.getCountOfAliveNeighbors(c) == 3) {
+                        if (that.containsCell(candidates, c) == false) {
                             candidates.push(c);
                         }
                     }
                 });
             });
+
             return candidates;
-        };
-        Grid.prototype.containsCell = function (cells, cell) {
+        }
+
+        private containsCell(cells: Cell[], cell: Cell) {
             var containsCell = false;
-            _.each(cells, function (c) {
-                if(c.equals(cell)) {
+
+            _.each(cells, function (c: Cell) {
+                if (c.equals(cell)) {
                     containsCell = true;
                 }
+
             });
+
             return containsCell;
-        };
-        return Grid;
-    })();
-    GameOfLife.Grid = Grid;    
-})(GameOfLife || (GameOfLife = {}));
+
+        }
+    }
+}
