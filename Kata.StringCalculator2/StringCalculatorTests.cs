@@ -3,52 +3,55 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using FluentAssertions;
+
 
 namespace Kata.StringCalculator2
 {
-    
     public class StringCalculatorTests
     {
         [Fact]
-        public void Add_An_Empty_String_Should_Return_Zero()
+        public void when_string_isempty_it_should_return_0()
         {
-            Assert.Equal(0, "".Add());
+            string.Empty.Calc().ShouldBeEquivalentTo(0);
         }
 
         [Fact]
-        public void Add_ANumber_Should_Return_TheNumericValue()
+        public void when_string_contains_a_numer_it_should_returns_the_numeric_value()
         {
-            Assert.Equal(1, "1".Add());
+            "1".Calc().ShouldBeEquivalentTo(1);
         }
 
         [Fact]
-        public void Add_TwoNumbers_Should_Return_Their_Sum()
+        public void when_string_contains_two_numbers_it_should_return_the_sum()
         {
-            Assert.Equal(3, "1,2".Add());
+            "1,2".Calc().ShouldBeEquivalentTo(3);
         }
 
         [Fact]
-        public void Add_NewLineAsDelimiter_Should_Also_Be_Possible()
+        public void when_string_contains_newline_as_sepator_it_should_return_the_sum()
         {
-            Assert.Equal(6, "1\n2,3".Add());
+            "1\n2,3".Calc().ShouldBeEquivalentTo(6);
         }
 
         [Fact]
-        public void Add_Supporting_Different_Delimiters_Should_Also_Be_Possible()
+        public void when_string_begins_with_the_definition_of_the_separator_it_should_use_this_separator()
         {
-            Assert.Equal(6, "//;\n1;2;3".Add());
+            "//;\n1;2".Calc().ShouldBeEquivalentTo(3);
         }
 
         [Fact]
-        public void Add_A_negative_number_should_throw_an_outofrangeexception()
+        public void when_string_contains_a_negative_number_it_should_returns_an_outofrangeexception()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(()=> "1,-2,3".Add());
+            Assert.Throws<ArgumentOutOfRangeException>(() => "1,-2".Calc());
         }
 
         [Fact]
-        public void Add_numbers_greater_1000_should_be_igored()
+        public void when_string_contains_numbers_greater_than_1000_it_should_ignore_it()
         {
-            Assert.Equal(2, "2,1001".Add());
+            "1001,2".Calc().Should().Be(2);
         }
+
+
     }
 }
