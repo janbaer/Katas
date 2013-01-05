@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.GameOfLife", "Kata.Gam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.StringCalculator2", "Kata.StringCalculator2\Kata.StringCalculator2.csproj", "{7579C371-102D-4EC6-B160-FC62D72450D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.TicTacToe", "Kata.TicTacToe\Kata.TicTacToe.csproj", "{76D4087B-C920-4D7D-B71D-F02D9AE6FBFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{7579C371-102D-4EC6-B160-FC62D72450D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7579C371-102D-4EC6-B160-FC62D72450D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7579C371-102D-4EC6-B160-FC62D72450D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76D4087B-C920-4D7D-B71D-F02D9AE6FBFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76D4087B-C920-4D7D-B71D-F02D9AE6FBFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76D4087B-C920-4D7D-B71D-F02D9AE6FBFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76D4087B-C920-4D7D-B71D-F02D9AE6FBFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
