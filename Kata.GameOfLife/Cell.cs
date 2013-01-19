@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Kata.GameOfLife
+﻿namespace Kata.GameOfLife
 {
-    public class Cell : IEquatable<Cell>
+    public class Cell
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -11,13 +9,6 @@ namespace Kata.GameOfLife
         {
             X = x;
             Y = y;
-        }
-
-        public bool Equals(Cell other)
-        {
-            if (ReferenceEquals(this, other)) return true;
-
-            return this.X == other.X && this.Y == other.Y;
         }
     }
 }
