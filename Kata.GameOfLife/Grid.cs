@@ -14,30 +14,31 @@ namespace Kata.GameOfLife
 
         public bool IsAlive(int x, int y)
         {
-            return _aliveCells.Any(c=> c.X == x && c.Y == y);
+            return IsAlive(new Cell(x, y));
         }
 
         public bool IsAlive(Cell cell)
         {
-            return IsAlive(cell.X, cell.Y);
+            return _aliveCells.Any(c => c.Equals(cell));
+        }
+
+        public bool IsNotAlive(Cell cell)
+        {
+            return IsAlive(cell) == false;
         }
 
         public Grid NewGeneration()
         {
-            IEnumerable<Cell> keepAliveCandidates = _aliveCells.Where(c =>
-                                                                          {
-                                                                              var count = GetCountOfAliveNeighbors(c);
+            IEnumerable<Cell> keepAliveCandidates = _aliveCells.Where(cell => GetCountOfAliveNeighbors(cell) == 2 || GetCountOfAliveNeighbors(cell) == 3);
 
-                                                                              return count == 2 || count == 3;
-                                                                          });
-            IEnumerable<Cell> reviveCandidates = _aliveCells.SelectMany(GetDeadNeighborsOf).Where(c => GetCountOfAliveNeighbors(c) == 3);
-
+            var reviveCandidates = _aliveCells.SelectMany(GetDeadNeighborsOf).Where(c => GetCountOfAliveNeighbors(c) == 3);
+            
             return new Grid(keepAliveCandidates.Union(reviveCandidates).ToArray());
         }
 
         private IEnumerable<Cell> GetDeadNeighborsOf(Cell cell)
         {
-            return GetNeighborsOf(cell).Where(c => IsAlive(c) == false);
+            return GetNeighborsOf(cell).Where(IsNotAlive);
         }
 
         private int GetCountOfAliveNeighbors(Cell cell)
@@ -47,20 +48,20 @@ namespace Kata.GameOfLife
 
         private IEnumerable<Cell> GetNeighborsOf(Cell cell)
         {
-            List<Cell> neighbors = new List<Cell>();
+            IList<Cell> neighbors = new List<Cell>();
 
             foreach (int x in Enumerable.Range(-1, 3))
             {
                 foreach (int y in Enumerable.Range(-1, 3))
                 {
-                    var neighbor = new Cell(cell.X + x, cell.Y + y);
-
-                    if ((cell.X == neighbor.X && cell.Y == neighbor.Y) == false)
+                    Cell neighbor = new Cell(cell.X + x, cell.Y + y);
+                    if (neighbor.Equals(cell) == false)
                     {
                         neighbors.Add(neighbor);
                     }
                 }
             }
+                                                               
             return neighbors;
         }
     }

@@ -9,7 +9,7 @@ This project contains my solution for the kata "GameOfLife"
 - [Lösung in C#](http://martinsaspects.blogspot.de/2011/01/conways-game-of-life-code-kata.html)
 
 # Rules
-- Eine tote Zelle mit genau drei lebenden Nachbarn wird in der Folgegeneration neu geboren.
 - Lebende Zellen mit weniger als zwei lebenden Nachbarn sterben in der Folgegeneration an Einsamkeit.
 - Eine lebende Zelle mit zwei oder drei lebenden Nachbarn bleibt in der Folgegeneration lebend.
+- Eine tote Zelle mit genau drei lebenden Nachbarn wird in der Folgegeneration neu geboren.
 - Lebende Zellen mit mehr als drei lebenden Nachbarn sterben in der Folgegeneration an Überbevölkerung.
