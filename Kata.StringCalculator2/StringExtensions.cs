@@ -2,9 +2,9 @@
 {
     public static class StringExtensions
     {
-        public static int Calc(this string input)
+        public static int Add(this string input)
         {
-            return new StringCalculator().Calc(input);
+            return new StringCalculator().Add(input);
         }
     }
 }

@@ -1,31 +1,24 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Kata.StringCalculator2
 {
     public class StringCalculator
     {
-        public int Calc(string input)
+        public int Add(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
                 return 0;
             }
 
-            char[] separators = new char[] { ',', '\n' };
-
+            char[] separators = new char[] {',', '\n'};
             if (input.StartsWith("//"))
             {
-                separators = input.Substring(2, 1).ToCharArray();
-                input = input.Substring(4);
+                separators = input.Substring(2, input.IndexOf('\n') - 2).ToCharArray();
+                input = input.Substring(input.IndexOf('\n') + 1);
             }
 
-            var numbers = input.Split(separators).Select(int.Parse).Where(n=> n <= 1000).ToArray();
-
-            if (numbers.Any(n=> n < 0))
-            {
-                throw new ArgumentOutOfRangeException("input");
-            }
+            var numbers = input.Split(separators).Select(int.Parse).Where(i=> i < 1001);
 
 
             return numbers.Sum();
