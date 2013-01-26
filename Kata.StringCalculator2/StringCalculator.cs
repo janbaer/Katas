@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Kata.StringCalculator2
 {
@@ -11,14 +12,14 @@ namespace Kata.StringCalculator2
                 return 0;
             }
 
-            char[] separators = new char[] {',', '\n'};
+            char[] separators = ",\n".ToCharArray();
             if (input.StartsWith("//"))
             {
-                separators = input.Substring(2, input.IndexOf('\n') - 2).ToCharArray();
-                input = input.Substring(input.IndexOf('\n') + 1);
+                separators = input.Substring(2, 1).ToCharArray();
+                input = input.Substring(4);
             }
 
-            var numbers = input.Split(separators).Select(int.Parse).Where(i=> i < 1001);
+            IEnumerable<int> numbers = input.Split(separators).Select(int.Parse).Where(n=> n<=1000);
 
 
             return numbers.Sum();

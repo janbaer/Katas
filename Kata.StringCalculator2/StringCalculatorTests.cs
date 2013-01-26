@@ -8,41 +8,40 @@ namespace Kata.StringCalculator2
     public class StringCalculatorTests
     {
         [Test]
-        public void when_string_is_empty_it_should_return_0()
+        public void When_string_is_empty_it_should_return_0()
         {
-            "".Add().ShouldBeEquivalentTo(0);
+            string.Empty.Sum().Should().Be(0);
         }
 
         [Test]
-        public void when_string_contains_a_single_number_it_should_return_the_numeric_value()
+        public void when_string_contains_a_number_it_should_return_its_value()
         {
-            "1".Add().ShouldBeEquivalentTo(1);
+            "1".Sum().ShouldBeEquivalentTo(1);
         }
 
         [Test]
-        public void when_string_contains_a_list_of_numbers_it_should_return_their_sum()
+        public void when_string_contains_a_list_of_number_it_should_return_their_sum()
         {
-            "1,2,3".Add().ShouldBeEquivalentTo(6);
+            "1,2,3".Sum().Should().Be(6);
         }
 
         [Test]
-        public void when_string_is_contains_newline_it_should_also_accepted_as_separator()
+        public void when_string_contains_a_line_break_it_should_accept_this_also_as_separator()
         {
-            "1\n2,3".Add().ShouldBeEquivalentTo(6);
+            "1\n2,3".Sum().Should().Be(6);
         }
 
         [Test]
-        public void when_contains_the_definition_for_the_separator_it_should_use_this_separator()
+        public void when_string_begins_with_the_definition_for_the_separator_it_should_use_this_separator()
         {
-            "//;\n1;2;3".Add().ShouldBeEquivalentTo(6);
+            "//;\n1;2;3".Sum().Should().Be(6);
         }
 
         [Test]
-        public void when_string_contains_numbers_greater_than_1000_it_should_ignore_it()
+        public void when_string_contains_a_number_greater_than_thousand_it_should_ignore_it()
         {
-            "1000,1001,2".Add().ShouldBeEquivalentTo(1002);
+            "1000,1001,2".Sum().Should().Be(1002);
         }
 
-                                     
     }
 }
