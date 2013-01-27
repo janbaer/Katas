@@ -1,71 +1,35 @@
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Kata.FizzBuzz
 {
     public class FizzBuzz
     {
-        private const string FIZZ_BUZZ = "FizzBuzz";
-        private const string FIZZ = "Fizz";
-        private const string BUZZ = "Buzz";
+        public const string FIZZBUZZ = "FIZZBUZZ";
+        public const string FIZZ = "FIZZ";
+        public const string BUZZ = "BUZZ";
 
-        public static string Check(int number)
+        public string Parse(int input)
         {
-            if (IsFizzBuzz(number))
+            if (input % 3 == 0 && input % 5 == 0)
             {
-                return FIZZ_BUZZ;
+                return FIZZBUZZ;
             }
-            else if(IsFizz(number))
+            else if (input%3==0)
             {
                 return FIZZ;
             }
-            else if (IsBuzz(number))
+            else if (input%5 == 0)
             {
                 return BUZZ;
             }
-
-            return number.ToString();
+            return input.ToString(CultureInfo.InvariantCulture);
         }
 
-        private static bool IsFizz(int number)
+        public IEnumerable<string> Generate()
         {
-            return number%3 == 0;
-        }
-
-        private static bool IsBuzz(int number)
-        {
-            return number%5 == 0;
-        }
-
-        private static bool IsFizzBuzz(int number)
-        {
-            return IsFizz(number) && IsBuzz(number);
-        }
-
-
-        public static IList<string> GenerateRange(Tuple<int, int> range)
-        {
-            var list = new List<string>();
-            for (int i = range.Item1; i <= range.Item2; i++)
-            {
-                if (IsFizzBuzz(i))
-                {
-                    list.Add(FIZZ_BUZZ);    
-                }   
-                else if(IsFizz(i))
-                {
-                    list.Add(FIZZ);
-                }
-                else if(IsBuzz(i))
-                {
-                    list.Add(BUZZ);
-                }
-                else
-                {
-                    list.Add(i.ToString());
-                }
-            }
-            return list;
+            return Enumerable.Range(1, 100).Select(Parse);
         }
     }
 }

@@ -43,5 +43,7 @@ namespace Kata.StringCalculator2
             "1000,1001,2".Sum().Should().Be(1002);
         }
 
+        
+
     }
 }
