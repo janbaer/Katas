@@ -3,39 +3,32 @@ using System.Linq;
 
 namespace Kata.TicTacToe
 {
-    internal class Game
+    public class Game
     {
-        public const char PLAYER1 = 'o';
-        public const char PLAYER2 = 'x';
-        public const char NO_WINNER = '\0';
         private const char EMPTY_CELL = '\0';
+        public const char NO_WINNER = EMPTY_CELL;
+        public const char PLAYER1 = 'x';
+        public const char PLAYER2 = 'o';
 
-        private readonly int[,] _cells = new int[3,3];
- 
+        private readonly int[, ] _cells = new int[3,3];
+
         public bool MarkCell(int x, int y, char player)
         {
-            if (_cells[x, y] == EMPTY_CELL)
+            if (_cells[x, y] != EMPTY_CELL)
             {
-                _cells[x, y] = player;
-                return true;
+                return false;
             }
-            return false;
+
+            _cells[x, y] = player;
+
+            return true;
         }
 
         public char GetWinner()
         {
-            var players = new List<char>() {Game.PLAYER1, Game.PLAYER2};
+            IEnumerable<char> players = new[] {PLAYER1, PLAYER2};
 
-            return players.FirstOrDefault(candidate => CheckRows(candidate) || CheckColumns(candidate) || CheckDiagonals(candidate));
-        }
-
-        public bool IsDraw()
-        {
-            if (Enumerable.Range(0, 3).All(x=> Enumerable.Range(0, 3).All(y=> _cells[x, y] != EMPTY_CELL)))
-            {
-                return GetWinner() == NO_WINNER;
-            }
-            return false;
+            return players.FirstOrDefault(player => CheckRows(player) || CheckColumns(player) || CheckDiagonals(player));
         }
 
         private bool CheckDiagonals(char player)
@@ -60,12 +53,17 @@ namespace Kata.TicTacToe
 
         private bool CheckRows(char player)
         {
-            return Enumerable.Range(0, 3).Any(y => Enumerable.Range(0, 3).All(x => _cells[x, y] == player));
+            return Enumerable.Range(0, 3).Any(y=> Enumerable.Range(0, 3).All(x=> _cells[x, y] == player));
         }
 
-        public bool IsGameOver()
+        public bool IsDraw()
         {
-            return IsDraw() || (GetWinner() != Game.NO_WINNER);
+            return AllCellsAreMarked() && GetWinner() == NO_WINNER;
+        }
+
+        private bool AllCellsAreMarked()
+        {
+            return Enumerable.Range(0, 3).All(x=> Enumerable.Range(0, 3).All(y=> _cells[x, y] != EMPTY_CELL));
         }
     }
 }
