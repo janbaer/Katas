@@ -56,7 +56,7 @@ namespace Kata.GameOfLife
         [Test]
         public void NewGeneration_when_cell_has_more_than_three_alive_neighbors_it_should_die()
         {
-            Grid grid = new Grid(new Cell(1, 1), new Cell(2,1), new Cell(2,2), new Cell(1,2));
+            Grid grid = new Grid(new Cell(1, 1), new Cell(2,1), new Cell(2,2), new Cell(1,2), new Cell(3,1));
             grid = grid.NewGeneration();
             grid.IsAlive(new Cell(2,2)).Should().Be(false);
         }
