@@ -13,3 +13,5 @@ nuget/
 _ReSharper.*/
 *.user
 .DS_Store
+
+node_modules/
