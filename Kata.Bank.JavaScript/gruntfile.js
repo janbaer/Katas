@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
     typescript: {
       base: {
-        src: ['app/**/*.ts', 'test/**/*.ts'],
+        src: ['./**/*.ts'],
         dest: '.',
         options: {
           module: 'commonjs',
@@ -18,15 +18,15 @@ module.exports = function (grunt) {
           base_path: '.',
           sourcemap: true,
           fullSourceMapPath: false,
-          declaration: true
+          declaration: false
         }
       }
     },
 
     // Tasks being executed with 'grunt watch'
     watch: {
-      files: ['<%= jshint.files %>', '<%= typescript.base.src %>'],
-      tasks: ['jshint', 'typescript']
+      files: ['<%= typescript.base.src %>'],
+      tasks: ['typescript']
     }
   });
 
