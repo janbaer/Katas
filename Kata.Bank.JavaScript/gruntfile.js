@@ -23,19 +23,36 @@ module.exports = function (grunt) {
       }
     },
 
-    // Tasks being executed with 'grunt watch'
+    mochaTest: {
+      files: [ 'test/**/*.js' ]
+    },
+
+    mochaTestConfig: {
+      options: {
+        reporter: 'spec',
+        ui: 'tdd'
+      }
+    },
+
     watch: {
-      files: ['<%= typescript.base.src %>'],
-      tasks: ['typescript']
+      typescript: {
+        files: ['<%= typescript.base.src %>'],
+        tasks: ['typescript']
+      },
+      mochaTest: {
+        files: ['<%= mochaTest.files %>'],
+        tasks: ['mochaTest']
+      }
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-typescript');
 
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'typescript', 'watch']);
+  grunt.registerTask('default', ['typescript', 'mochaTest', 'watch']);
 
 };
