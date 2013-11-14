@@ -1,49 +1,95 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using FluentAssertions;
 
-namespace Kata.StringCalculator2
+namespace Kata.StringCalculator
 {
     [TestFixture]
     public class StringCalculatorTests
     {
-        [Test]
-        public void When_string_is_empty_it_should_return_0()
+        [SetUp]
+        public void Init()
         {
-            string.Empty.Sum().Should().Be(0);
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+        }
+
+
+        [Test]
+        public void When_string_is_empty_it_should_return_zero()
+        {
+            string.Empty.Add().Should().Be(0);
         }
 
         [Test]
-        public void when_string_contains_a_number_it_should_return_its_value()
+        public void When_string_contains_a_single_number_it_should_return_the_value_of_it()
         {
-            "1".Sum().ShouldBeEquivalentTo(1);
+            "1".Add().ShouldBeEquivalentTo(1);    
         }
 
         [Test]
-        public void when_string_contains_a_list_of_number_it_should_return_their_sum()
+        public void When_string_contains_a_list_of_numbers_separated_with_comma_it_should_return_the_sum_of_it()
         {
-            "1,2,3".Sum().Should().Be(6);
+            "1,2,3".Add().Should().Be(6);
         }
 
         [Test]
-        public void when_string_contains_a_line_break_it_should_accept_this_also_as_separator()
+        public void When_string_contains_various_separators_it_should_return_also_the_sum_of_all_numbers()
         {
-            "1\n2,3".Sum().Should().Be(6);
+            "1\n2,3".Add().Should().Be(6);
         }
 
         [Test]
-        public void when_string_begins_with_the_definition_for_the_separator_it_should_use_this_separator()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void When_string_contains_a_negative_number_it_should_throw_an_exception()
         {
-            "//;\n1;2;3".Sum().Should().Be(6);
+            "1,-1,2".Add();
         }
 
         [Test]
-        public void when_string_contains_a_number_greater_than_thousand_it_should_ignore_it()
+        public void When_string_contains_numbers_greater_thousand_it_should_ignore_this_numbers()
         {
-            "1000,1001,2".Sum().Should().Be(1002);
+            "2,1001".Add().Should().Be(2);
         }
 
-        
+        [Test]
+        public void When_the_string_starts_with_a_delimiter_it_shouldignore_it()
+        {
+            "//[delimiter]\n1,2,3".Add().Should().Be(6);
+        }
 
+
+         
+    }
+
+    public static class StringExtensions
+    {
+        public static int Add(this string input)
+        {
+            const string delimiter = "//[delimiter]\n";
+
+            if (string.IsNullOrEmpty(input))
+            {
+                return 0;
+            }
+
+            if (input.StartsWith(delimiter))
+            {
+                input = input.Substring(delimiter.Length);
+            }
+
+            var numbers = input.Split(new [] {',', '\n'}).Select(int.Parse).Where(n=>n<=1000).ToList();
+
+            if (numbers.Any(n=> n < 0))
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return numbers.Sum();
+        }
     }
 }

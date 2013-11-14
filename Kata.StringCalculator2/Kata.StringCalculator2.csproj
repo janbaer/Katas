@@ -6,7 +6,7 @@
     <ProjectGuid>{7579C371-102D-4EC6-B160-FC62D72450D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kata.StringCalculator2</RootNamespace>
+    <RootNamespace>Kata.StringCalculator</RootNamespace>
     <AssemblyName>Kata.StringCalculator2</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -62,9 +62,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringCalculator.cs" />
-    <Compile Include="StringCalculatorTests.cs" />
-    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
