@@ -1,0 +1,28 @@
+{
+  "name": "javascriptkata",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "karma start"
+  },
+  "keywords": [
+    "tdd",
+    "kata",
+    "javascript"
+  ],
+  "author": "Jan Baer",
+  "license": "BSD",
+  "devDependencies": {
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-script-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.0",
+    "karma-requirejs": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma": "~0.10.1",
+    "karma-growl-reporter": "~0.1.0",
+    "karma-spec-reporter": "0.0.5"
+  }
+}
