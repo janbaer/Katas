@@ -1,58 +1,51 @@
 'use strict';
 
 describe('Game Of Life Tests', function () {
-  describe('When the cell on the given position is alive', function () {
+  describe('When a cell is alive', function () {
     it('Should return true', function () {
       var grid = new Grid(new Cell(1,1));
-      expect(grid.isAlive(1,1)).toEqual(true);
+      expect(grid.isAlive(new Cell(1,1))).toEqual(true);
     });
   });
-
-  describe('When the cell on the given position is not alive', function () {
+  describe('When a cell is not alive', function () {
     it('Should return false', function () {
       var grid = new Grid(new Cell(1,1));
-      expect(grid.isAlive(1,2)).toEqual(false);
+      expect(grid.isAlive(new Cell(1,2))).toEqual(false);
     });
   });
-
-  describe('Any alive cells with fewer than 2 alive neighboors', function () {
-    it('Should be killed after new generation', function () {
-      var grid = new Grid(new Cell(1,1));
+  describe('When alive cell has fewer than two alive neighbors', function () {
+    it('Should died after new generation', function () {
+      var grid = new Grid(new Cell(1,1), new Cell(1,2));
       grid.newGeneration();
-      expect(grid.isAlive(1,1)).toEqual(false);
+      expect(grid.isAlive(new Cell(1,2))).toEqual(false);
     });
   });
-
-  describe('Any alive cells with two alive neighboors', function () {
+  describe('When alive cell has two alive neighbors', function () {
     it('Should keep alive after new generation', function () {
       var grid = new Grid(new Cell(1,1), new Cell(1,2), new Cell(1,3));
       grid.newGeneration();
-      expect(grid.isAlive(1,2)).toEqual(true);
+      expect(grid.isAlive(new Cell(1,2))).toEqual(true);
     });
   });
-
-  describe('Any alive cells with three alive neigboors', function () {
-    it('Should stay alive after new generation', function () {
+  describe('When alive cell has three alive neighbors', function () {
+    it('Should keep alive after new generation', function () {
       var grid = new Grid(new Cell(1,1), new Cell(1,2), new Cell(1,3), new Cell(2,2));
       grid.newGeneration();
-      expect(grid.isAlive(1,2)).toEqual(true);
+      expect(grid.isAlive(new Cell(1,2))).toEqual(true);
     });
   });
-
-  describe('Any alive cell with more than three alive neighboors', function () {
-    it('Should die after new generation', function () {
-      var grid = new Grid(new Cell(1,1), new Cell(1,2), new Cell(1,3), new Cell(2,1), new Cell(2,2));
+  describe('When alive cell has more than three alive neighbors', function () {
+    it('Should died after new generation', function () {
+      var grid = new Grid(new Cell(1,1), new Cell(1,2), new Cell(1,3), new Cell(2,2), new Cell(2,1));
       grid.newGeneration();
-      expect(grid.isAlive(1,2)).toEqual(false);
+      expect(grid.isAlive(new Cell(1,2))).toEqual(false);
     });
   });
-
-  describe('Any dead cell with exactly three alive neighboors', function () {
-    it('Should be reborn after new generation', function () {
+  describe('When a dead cell has three alive neighbors', function () {
+    it('Should revive after new generation', function () {
       var grid = new Grid(new Cell(1,1), new Cell(1,3), new Cell(2,2));
       grid.newGeneration();
-      expect(grid.isAlive(1,2)).toEqual(true);
+      expect(grid.isAlive(new Cell(1,2))).toEqual(true);
     });
   });
-
 });
