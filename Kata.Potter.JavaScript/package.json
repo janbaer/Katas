@@ -1,0 +1,29 @@
+{
+  "name": "gameoflife",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Jan",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "start": "karma start",
+    "test": "karma start --browsers ChromeCanary"
+  },
+  "keywords": [
+    "tdd",
+    "kata",
+    "javascript"
+  ],
+  "license": "BSD",
+  "devDependencies": {
+    "karma-jasmine": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma": "~0.10.1",
+    "karma-growl-reporter": "~0.1.0",
+    "karma-spec-reporter": "0.0.5"
+  }
+}
