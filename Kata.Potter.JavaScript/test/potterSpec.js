@@ -8,53 +8,40 @@ describe('Kata.Potter', function () {
     basket = new Basket();
   });
 
-  describe('When Basket contains no books', function () {
+  describe('When the basket is empty', function () {
     it('Should return 0', function () {
-      var price = basket.calculate();
-      expect(price).toBe(0);
+      expect(basket.calculate([])).toBe(0);
     });
   });
 
-  describe('When basket contains just one book', function () {
-    it('Should return the price of the book', function () {
-      var price = basket.calculate([ { id: 1, count: 1} ]);
-      expect(price).toBe(8);
+  describe('When the user want to buy just one book', function () {
+    it('Should return the full price for one book', function () {
+      expect(basket.calculate([ 1 ])).toBe(8);
     });
   });
 
   describe('When the user wants to buy a book twice', function () {
-    it('Should just return the sum of two books', function () {
-      var price = basket.calculate([ { id: 1, count: 2} ]);
-      expect(price).toBe(16);
+    it('Should just multiply the price of two books', function () {
+      expect(basket.calculate([ 2 ])).toBe(16);
     });
   });
 
   describe('When the user wants to buy two different books', function () {
     it('Should give the user the expected discount', function () {
-      var price = basket.calculate([ { id: 1, count: 1}, { id: 2, count: 1} ]);
-      expect(price).toBe(15.2);
+      expect(basket.calculate([ 1, 1 ])).toBe(15.2);
     });
   });
 
-  describe('When the user wants to buy a book twice and also another book', function () {
-    it('Should give the user the discount for two books', function () {
-      var books = [ { id: 1, count: 2}, { id: 2, count: 1} ];
-      var price = basket.calculate(books);
-      expect(price).toBe(23.2);
+  describe('When the user wants to buy three books but just two different books', function () {
+    it('Should pay the complete price for the third book', function () {
+      expect(basket.calculate([ 2, 1 ])).toBe(23.2);
     });
   });
 
-  describe('When the user wants buy more books', function () {
-    it('Should return the user the best price combination', function () {
-      var books = [
-        { id: 1, count: 2},
-        { id: 2, count: 2},
-        { id: 3, count: 2},
-        { id: 4, count: 1},
-        { id: 5, count: 1},
-      ];
-      var price = basket.calculate(books);
-      expect(price).toBe(51.20);
+  describe('When the user wants to buy some more books', function () {
+    it('should get the best price', function () {
+      var books = [ 2, 2, 2, 1, 1 ];
+      expect(basket.calculate(books)).toBe(51.2);
     });
   });
 });
