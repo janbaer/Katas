@@ -23,9 +23,9 @@ var calculator = function () {
       } else if (number < 1001) {
         sum += number;
       }
-    })
+    });
     return sum;
-  }
+  };
 
   return {
     add: add
