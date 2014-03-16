@@ -1,3 +1,4 @@
+/* globals expect, describe, it, calculator */
 'use strict';
 
 describe('StringCalculator specs', function () {
@@ -33,8 +34,8 @@ describe('StringCalculator specs', function () {
   describe('When string contains a negative number', function () {
     it('Should throw an exception', function () {
       expect(function () {
-        calculator.add('-1,2')
-      }).toThrow(new Error('negatives not allowed'))
+        calculator.add('-1,2');
+      }).toThrow(new Error('negatives not allowed'));
     });
   });
   describe('When a number is greater than 1001', function () {
