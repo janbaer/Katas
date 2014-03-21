@@ -1,33 +1,51 @@
 'use strict';
 
-var calculator = function () {
-  var add = function (input) {
-    if (input === '') {
-      return 0;
-    }
+var tryReadDelimiterFromInput = function (input) {
+  var delimiter = '';
 
-    var delimiter = /,|\n/;
-    var matches = new RegExp('//\\[(.)\\]\n(.+)').exec(input);
-    if (matches !== null) {
-      delimiter = matches[1];
-      input = matches[2];
-    }
-
-    var sum = 0;
-
-    var tokens = input.split(delimiter);
-    tokens.forEach(function (token) {
-      var number = parseInt(token);
-      if (number < 0) {
-        throw new Error('negatives not allowed');
-      } else if (number < 1001) {
-        sum += number;
-      }
-    });
-    return sum;
-  };
-
+  if (input.indexOf('\\') === 0) {
+    delimiter = [input.substr(1, 1)];
+    input = input.substr(3);
+  }
   return {
-    add: add
+    delimiter: delimiter,
+    input: input
   };
-}();
+};
+
+var readStringWithDifferentDelimiters = function (input, delimiter) {
+  var allowedDelimiters = [delimiter, '\n'];
+
+  for (var i = 1; i < allowedDelimiters.length; i++) {
+    input = input.replace(allowedDelimiters[i], allowedDelimiters[0]);
+  }
+  return input;
+};
+
+var calculate = function (input) {
+  if (input.length === 0) {
+    return 0;
+  }
+
+  var result = tryReadDelimiterFromInput(input);
+  var delimiter = result.delimiter;
+  input = result.input;
+
+  if (delimiter.length === 0) {
+    delimiter = ',';
+    input = readStringWithDifferentDelimiters(input, delimiter);
+  }
+
+  var sum = 0;
+  var numbers = input.split(delimiter);
+
+  numbers.forEach(function (number) {
+    var parsedNumber = parseInt(number);
+    if (parsedNumber < 0) {
+      throw new Error('Invalid number ' + parsedNumber);
+    } else if (parsedNumber <= 1000) {
+      sum += parseInt(number);
+    }
+  });
+  return sum;
+};
