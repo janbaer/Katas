@@ -1,10 +1,19 @@
 'use strict';
 
-var tryReadDelimiterFromInput = function (input) {
+var normalizeInputWithDifferentDelimiters = function (input) {
+  var allowedDelimiters = [',', '\n'];
+
+  for (var i = 1; i < allowedDelimiters.length; i++) {
+    input = input.replace(allowedDelimiters[i], allowedDelimiters[0]);
+  }
+  return input;
+};
+
+var tryReadDelimiterDefinitionFromInput = function (input) {
   var delimiter = '';
 
   if (input.indexOf('\\') === 0) {
-    delimiter = [input.substr(1, 1)];
+    delimiter = input.substr(1, 1);
     input = input.substr(3);
   }
   return {
@@ -13,13 +22,12 @@ var tryReadDelimiterFromInput = function (input) {
   };
 };
 
-var readStringWithDifferentDelimiters = function (input, delimiter) {
-  var allowedDelimiters = [delimiter, '\n'];
-
-  for (var i = 1; i < allowedDelimiters.length; i++) {
-    input = input.replace(allowedDelimiters[i], allowedDelimiters[0]);
+var parseAndVerifyThatNumberIsPositive = function (number) {
+  var parsedNumber = parseInt(number);
+  if (parsedNumber < 0) {
+    throw new Error('invalid number ' + parsedNumber);
   }
-  return input;
+  return parsedNumber;
 };
 
 var calculate = function (input) {
@@ -27,24 +35,24 @@ var calculate = function (input) {
     return 0;
   }
 
-  var result = tryReadDelimiterFromInput(input);
-  var delimiter = result.delimiter;
-  input = result.input;
+  var delimiter = ',';
 
-  if (delimiter.length === 0) {
-    delimiter = ',';
-    input = readStringWithDifferentDelimiters(input, delimiter);
+  var result = tryReadDelimiterDefinitionFromInput(input);
+  console.log(result);
+  if (result.delimiter.length !== 0) {
+    delimiter = result.delimiter;
+    input = result.input;
+  } else {
+    input = normalizeInputWithDifferentDelimiters(input);
   }
 
   var sum = 0;
   var numbers = input.split(delimiter);
 
   numbers.forEach(function (number) {
-    var parsedNumber = parseInt(number);
-    if (parsedNumber < 0) {
-      throw new Error('Invalid number ' + parsedNumber);
-    } else if (parsedNumber <= 1000) {
-      sum += parseInt(number);
+    var parsedNumber = parseAndVerifyThatNumberIsPositive(number);
+    if (parsedNumber <= 1000) {
+      sum += parsedNumber;
     }
   });
   return sum;
