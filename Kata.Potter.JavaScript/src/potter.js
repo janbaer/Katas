@@ -20,15 +20,17 @@ Basket.prototype.buildPackages = function (books, maxCount) {
   return count;
 };
 
-Basket.prototype.calculatePackagePrice = function (books, maxCount) {
-  var packagePrice = 0, count = 0;
+Basket.prototype.calculatePriceForPackages = function (books, maxCount) {
+  var totalPrice = 0, count = 0;
+
   do {
     count = this.buildPackages(books, maxCount);
-    packagePrice += count * this.bookPrice * this.discounts[count];
+    totalPrice += count * this.bookPrice * this.discounts[count];
   } while (count > 0);
 
-  return packagePrice;
+  return totalPrice;
 };
+
 
 Basket.prototype.calculate = function (books) {
   books = books || [];
@@ -39,12 +41,15 @@ Basket.prototype.calculate = function (books) {
   var bestPrice = 0;
 
   for (var maxCount = 5; maxCount > 0; maxCount--) {
-    var price = this.calculatePackagePrice(books.slice(0), maxCount);
+    var price = this.calculatePriceForPackages(books.slice(0), maxCount);
     if (price > 0 && (bestPrice === 0 || bestPrice > price)) {
       bestPrice = price;
     } else {
       break;
     }
   }
+
   return bestPrice;
 };
+
+
