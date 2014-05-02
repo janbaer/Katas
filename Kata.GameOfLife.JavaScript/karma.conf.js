@@ -2,6 +2,8 @@
 // Generated on Wed Sep 18 2013 08:04:02 GMT+0200 (CEST)
 
 module.exports = function(config) {
+  'use strict';
+
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -16,6 +18,7 @@ module.exports = function(config) {
     files: [
       //'lib/**/*.js',
       'src/*.js',
+      'test/phantom-polyfill.js',
       'test/**/*Spec.js'
     ],
 
