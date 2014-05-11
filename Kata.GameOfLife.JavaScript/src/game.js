@@ -9,16 +9,17 @@ Cell.prototype.equals = function (otherCell) {
   return this.x === otherCell.x && this.y === otherCell.y;
 };
 
-var Grid = function () {
-  this.aliveCells = [].slice.call(arguments);
 
-  this.isAlive = function (cell) {
-    return this.aliveCells.some(function (aliveCell) {
+var Grid = function () {
+  var aliveCells = [].slice.call(arguments);
+
+  var isAlive = function (cell) {
+    return aliveCells.some(function (aliveCell) {
       return aliveCell.equals(cell);
     });
   };
 
-  this.getNeighborsOf = function (cell, filter) {
+  var getNeighborsOf = function (cell, filter) {
     var neighbors = [];
 
     for (var x = -1; x < 2; x++) {
@@ -31,47 +32,51 @@ var Grid = function () {
     }
 
     if (filter) {
-      return neighbors.filter(filter);
+      neighbors = neighbors.filter(filter);
     }
     return neighbors;
   };
 
-  this.getAliveNeighborsOf = function (cell) {
-    return this.getNeighborsOf(cell, function (neighbor) {
-      return this.isAlive(neighbor);
-    }.bind(this));
+  var getAliveNeighborsOf = function (cell) {
+    return getNeighborsOf(cell, function (neighbor) {
+      return isAlive(neighbor);
+    });
   };
 
-  this.getDeadNeighborsOf = function (cell) {
-    return this.getNeighborsOf(cell, function (neighbor) {
-      return !this.isAlive(neighbor);
-    }.bind(this));
+  var getDeadNeighborsOf = function (cell) {
+    return getNeighborsOf(cell, function (neighbor) {
+      return !isAlive(neighbor);
+    });
   };
 
-  this.getAliveCandidates = function (aliveCells) {
+  var getAliveCandidates = function () {
     return aliveCells.filter(function (aliveCell) {
-      var aliveNeighbors = this.getAliveNeighborsOf(aliveCell);
-      return aliveNeighbors.length === 3 || aliveNeighbors.length === 4;
-    }.bind(this));
+      var count = getAliveNeighborsOf(aliveCell).length;
+      return (count === 2 || count === 3);
+    });
   };
 
-  this.getReviveCandidates = function (aliveCells) {
-    var candidates = [];
+  var getReviveCandidates = function () {
+    var reviveCandidates = [];
 
     aliveCells.forEach(function (aliveCell) {
-      var deadNeighbors = this.getDeadNeighborsOf(aliveCell);
-      candidates = candidates.concat(deadNeighbors.filter(function (deadNeighbor) {
-        return this.getAliveNeighborsOf(deadNeighbor).length === 3;
-      }.bind(this)));
-    }.bind(this));
+      var deadNeighbors = getDeadNeighborsOf(aliveCell);
 
-    return candidates;
+      deadNeighbors.forEach(function (neighbor) {
+        if (getAliveNeighborsOf(neighbor).length === 3) {
+          reviveCandidates.push(neighbor);
+        }
+      });
+    });
+    return reviveCandidates;
   };
 
-  this.newGeneration = function () {
-    var aliveCandidates = this.getAliveCandidates(this.aliveCells);
-    var reviveCandidates = this.getReviveCandidates(this.aliveCells);
+  var newGeneration = function () {
+    aliveCells = getAliveCandidates().concat(getReviveCandidates());
+  };
 
-    this.aliveCells = aliveCandidates.concat(reviveCandidates);
+  return {
+    isAlive: isAlive,
+    newGeneration: newGeneration
   };
 };
