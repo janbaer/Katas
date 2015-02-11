@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Wed Sep 18 2013 08:04:02 GMT+0200 (CEST)
 
-module.exports = function(config) {
+module.exports = function (config) {
   'use strict';
 
   config.set({
@@ -16,10 +16,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      //'lib/**/*.js',
-      'src/*.js',
       'test/phantom-polyfill.js',
-      'test/**/*Spec.js'
+      'test/jasmine-aliases.js',
+      'src/**/*.js',
+      'test/**/*.js'
     ],
 
 
@@ -68,6 +68,23 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+
+    preprocessors: {
+      'src/**/*.js': ['6to5'],
+      'test/**/*.js': ['6to5']
+    },
+
+    '6to5Preprocessor': {
+      options: {
+        sourceMap: 'inline'
+      },
+      filename: function(file) {
+        return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function(file) {
+        return file.originalPath;
+      }
+    }
   });
 };

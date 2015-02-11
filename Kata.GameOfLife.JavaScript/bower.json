@@ -1,19 +1,7 @@
 {
-  "name": "katajavascript",
-  "version": "0.0.0",
-  "authors": [
-    "Jan Baer"
-  ],
-  "main": "",
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "lib",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
+  "name": "gameoflife",
+  "version": "0.0.1",
+  "devDependencies": {
   }
 }
+

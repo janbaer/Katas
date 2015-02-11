@@ -16,3 +16,5 @@ _ReSharper.*/
 
 node_modules/
 bower/
+
+npm-debug.log

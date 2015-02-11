@@ -1,6 +1,2 @@
-./lib
-dist
-styleguide
-.sass-cache
-node_modules
-coverage
+node_modules/
+bower/
