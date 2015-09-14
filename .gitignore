@@ -17,4 +17,6 @@ _ReSharper.*/
 node_modules/
 bower/
 
+.idea/
+
 npm-debug.log
