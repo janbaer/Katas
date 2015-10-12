@@ -1,0 +1,1 @@
+nosetests --with-mocha-reporter --with-watch -s .
