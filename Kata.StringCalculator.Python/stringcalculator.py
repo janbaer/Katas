@@ -1,39 +1,36 @@
-class Calculator():
-    @staticmethod
-    def splitToNumbers(input):
-        numbers = []
-        number = ""
+import re
 
-        for c in input:
-            if c.isdigit():
-                number += c
-            elif c == "-":
-              number += c
-            elif len(number) > 0:
-                numbers.append(int(number))
-                number = ""
+regex = re.compile("//(.)\\n(.+)", re.MULTILINE)
 
-        if len(number) > 0:
-          numbers.append(int(number))
+def _normalizeDelimiters(input, delimiter):
+    return input.replace("\n", delimiter)
 
-        return numbers
+def _determinateDelimiter(input):
+    delimiter = ","
+    match = regex.search(input)
 
-    @staticmethod
-    def verifyNumberRanges(numbers):
+    if match:
+        delimiter, input = match.groups()
 
-      for number in numbers:
-          if number < 0:
-            raise ValueError('Negative Numbers are not allowed')
+    return delimiter, input
 
-      return [number for number in numbers if number <= 1000]
+def _verifyNumberRanges(numbers):
+    if any(number < 0 for number in numbers):
+        raise ValueError('Number must be greater zero')
 
-    @staticmethod
-    def calc(input):
-        if len(input) == 0:
-            return 0
+    return [number for number in numbers if number <= 1000]
 
-        numbers = Calculator.splitToNumbers(input)
+def add(input):
+    if len(input) == 0:
+        return 0
 
-        numbers = Calculator.verifyNumberRanges(numbers)
+    delimiter, input = _determinateDelimiter(input);
 
-        return sum(numbers)
+    input = _normalizeDelimiters(input, delimiter)
+
+    numbers = [int(number) for number in input.split(delimiter)]
+
+    numbers = _verifyNumberRanges(numbers)
+
+    return sum(numbers)
+
