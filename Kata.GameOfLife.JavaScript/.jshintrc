@@ -30,7 +30,11 @@
     "inject": false,
     "_": false,
     "$": false,
+    "because": false,
     "establish": false,
-    "because": false
+    "context": false,
+    "given": false,
+    "when": false,
+    "then": false
   }
 }
